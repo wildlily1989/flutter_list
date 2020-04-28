@@ -12,14 +12,15 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: title,
 //      home: new BasicList(title: title,),
-    home: new ListBuilder(),
+//    home: new ListBuilder(),
+      home: new GridList(),
     );
   }
 }
 
-class BasicList  extends StatelessWidget{
+class BasicList extends StatelessWidget {
   final title;
-  BasicList({Key key,this.title}):super(key:key);
+  BasicList({Key key, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -40,7 +41,6 @@ class BasicList  extends StatelessWidget{
             leading: new Icon(Icons.photo),
             title: new Text('Album'),
           ),
-
           new ListTile(
             leading: new Icon(Icons.photo),
             title: new Text('Album'),
@@ -52,7 +52,7 @@ class BasicList  extends StatelessWidget{
   }
 }
 
-class ListBuilder extends StatelessWidget{
+class ListBuilder extends StatelessWidget {
   final items = new List<String>.generate(10000, (i) => "Item $i");
   @override
   Widget build(BuildContext context) {
@@ -61,14 +61,37 @@ class ListBuilder extends StatelessWidget{
         title: new Text('List Builder'),
       ),
       body: new ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context,index){
-        return new ListTile(
-          title: new Text('${items[index]}'),
-        );
-      },),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return new ListTile(
+            title: new Text('${items[index]}'),
+          );
+        },
+      ),
     );
     throw UnimplementedError();
   }
-  
+}
+
+class GridList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Grid List'),
+      ),
+      body: new GridView.count(
+        crossAxisCount: 2,
+        children: new List.generate(100, (index) {
+          return new Center(
+            child: new Text(
+              'Item $index',
+              style: Theme.of(context).textTheme.headline,
+            ),
+          );
+        }),
+      ),
+    );
+    throw UnimplementedError();
+  }
 }
