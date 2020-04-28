@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: title,
-      home: new BasicList(title: title,),
+//      home: new BasicList(title: title,),
+    home: new ListBuilder(),
     );
   }
 }
@@ -49,4 +50,25 @@ class BasicList  extends StatelessWidget{
     );
     throw UnimplementedError();
   }
+}
+
+class ListBuilder extends StatelessWidget{
+  final items = new List<String>.generate(10000, (i) => "Item $i");
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('List Builder'),
+      ),
+      body: new ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context,index){
+        return new ListTile(
+          title: new Text('${items[index]}'),
+        );
+      },),
+    );
+    throw UnimplementedError();
+  }
+  
 }
